@@ -13,9 +13,12 @@ const db = new sqlite3.Database(
 
 db.serialize(() => {
     db.run(
-        `CREATE TABLE IF NOT EXISTS person (
+        `CREATE TABLE IF NOT EXISTS user (
             id INTEGER PRIMARY KEY,
-            name TEXT
+            username TEXT,
+            full_name TEXT,
+            password TEXT,
+            role TEXT DEFAULT 'user'
         )`,
         (err) => {
             if (err) {
@@ -23,5 +26,38 @@ db.serialize(() => {
             }
             console.log("Created person table.");
         }
-    )
+    );
+    db.run(
+      `CREATE TABLE IF NOT EXISTS post (
+          id INTEGER PRIMARY KEY,
+          title TEXT,
+          description TEXT,
+          posted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          user_id INTEGER,
+          FOREIGN KEY (user_id) REFERENCES user(id)
+      )`,
+      (err) => {
+          if (err) {
+          return console.error(err.message);
+          }
+          console.log("Created post table.");
+      }
+    );
+    db.run(
+      `CREATE TABLE IF NOT EXISTS comment (
+          id INTEGER PRIMARY KEY,
+          description TEXT,
+          commented_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          user_id INTEGER,
+          post_id INTEGER,
+          FOREIGN KEY (user_id) REFERENCES user(id),
+          FOREIGN KEY (post_id) REFERENCES post(id)
+      )`,
+      (err) => {
+          if (err) {
+          return console.error(err.message);
+          }
+          console.log("Created comment table.");
+      }
+    );
 });

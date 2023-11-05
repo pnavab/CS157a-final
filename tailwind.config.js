@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -15,6 +17,9 @@ module.exports = {
       fontFamily: {
         sans : ['Dancing Script', 'sans-serif']
       },
+      colors: {
+        'Moonstone' : '#6C969D'
+      }
     },
   },
   plugins: [],

@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-const BASE_POST_URL = "http://localhost:3000/api/posts";
-const BASE_COMMENT_URL = "http://localhost:3000/api/comments";
-const BASE_USER_URL = "http://localhost:3000/api/users";
+const BASE_POST_URL = "/api/posts";
+const BASE_COMMENT_URL = "/api/comments";
+const BASE_USER_URL = "/api/users";
 
 function getUser(userId) {
   return fetch(`${BASE_USER_URL}/${userId}`)

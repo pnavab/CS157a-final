@@ -16,7 +16,7 @@ export async function GET(req) {
     return Response.json(items);
   } catch (err) {
     console.error(`Error finding user ${id}`);
-    return Response.json({ error: `Error finding user ${id}`})
+    return Response.status(404).json({ error: `Error finding user ${id}`})
   }
 
 }

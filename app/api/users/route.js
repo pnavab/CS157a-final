@@ -3,6 +3,7 @@ import { open, Database } from "sqlite";
 
 let db = null;
 
+//Get all users
 export async function GET(req, res) {
   if (!db) {
     db = await open({

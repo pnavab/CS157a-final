@@ -15,7 +15,7 @@ db.serialize(() => {
     db.run(
         `CREATE TABLE IF NOT EXISTS user (
             id INTEGER PRIMARY KEY,
-            username TEXT,
+            username TEXT UNIQUE,
             fullname TEXT,
             password TEXT,
             role TEXT DEFAULT 'user'

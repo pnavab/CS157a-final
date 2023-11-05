@@ -16,7 +16,7 @@ db.serialize(() => {
         `CREATE TABLE IF NOT EXISTS user (
             id INTEGER PRIMARY KEY,
             username TEXT,
-            full_name TEXT,
+            fullname TEXT,
             password TEXT,
             role TEXT DEFAULT 'user'
         )`,
@@ -60,4 +60,11 @@ db.serialize(() => {
           console.log("Created comment table.");
       }
     );
+    const insertSql = `INSERT INTO user(username, fullname, password) VALUES("jd", "John Doe", "1234")`
+    db.run(insertSql, function(err) {
+      if(err) {
+        return console.error(err.message);
+      }
+      console.log("Inserted successfully");
+    });
 });

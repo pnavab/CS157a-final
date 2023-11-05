@@ -3,7 +3,7 @@ import { open, Database } from "sqlite";
 
 let db = null;
 
-//Get all users
+//Get all comments
 export async function GET() {
   if (!db) {
     db = await open({
@@ -11,13 +11,13 @@ export async function GET() {
       driver: sqlite3.Database,
     });
   }
-  const items = await db.all("SELECT * FROM user");
+  const items = await db.all("SELECT * FROM comment");
 
   return Response.json(items);
 }
 
 export async function POST(req) {
-  const { username, password, fullname } = await req.json();
+  const { description, user_id, post_id } = await req.json();
   if (!db) {
     db = await open ({
       filename: "./collection.db",
@@ -26,11 +26,11 @@ export async function POST(req) {
   }
   
   try {
-    const insertSql = `INSERT INTO user(username, fullname, password) VALUES("${username}", "${fullname}", "${password}")`;
+    const insertSql = `INSERT INTO comment(description, post_id, user_id) VALUES("${description}", "${post_id}", "${user_id}")`;
     db.run(insertSql);
-    return Response.json({ message: "User added successfully" });
+    return Response.json({ message: "comment added successfully" });
   } catch (err) {
     console.error(err);
-    return Response.json({ error: "Error adding user" });
+    return Response.json({ error: "Error adding comment" });
   }
 }

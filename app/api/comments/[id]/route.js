@@ -12,7 +12,7 @@ export async function GET(req) {
     });
   }
   try {
-    const items = await db.get(`SELECT * FROM comment WHERE id = ${id}`);
+    const items = await db.all(`SELECT * FROM comment WHERE post_id = ${id}`);
     return Response.json(items);
   } catch (err) {
     return Response.json({ error: `Error finding comment ${id}`})

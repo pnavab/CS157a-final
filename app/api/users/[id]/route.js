@@ -12,7 +12,7 @@ export async function GET(req) {
     });
   }
   try {
-    const items = await db.get(`SELECT * FROM user WHERE id = ${id}`);
+    const items = await db.get(`SELECT username FROM user WHERE id = ${id}`);
     return Response.json(items);
   } catch (err) {
     console.error(`Error finding user ${id}`);

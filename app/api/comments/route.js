@@ -28,7 +28,7 @@ export async function POST(req) {
   try {
     const insertSql = `INSERT INTO comment(description, post_id, user_id) VALUES("${description}", "${post_id}", "${user_id}")`;
     db.run(insertSql);
-    return Response.json({ message: "comment added successfully" });
+    return Response.json({ "description": description, "user_id": user_id, "post_id": post_id });
   } catch (err) {
     console.error(err);
     return Response.json({ error: "Error adding comment" });

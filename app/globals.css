@@ -8,6 +8,16 @@
   --background-end-rgb: 255, 255, 255;
 }
 
+main {
+  background-color: #F7EDE2;
+  color: #F28482;
+}
+
+p2 {
+  font-family: 'Montserrat', sans-serif;
+  font-family: 'Dancing Script', sans-serif;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;

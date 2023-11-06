@@ -60,10 +60,4 @@ db.serialize(() => {
           console.log("Created comment table.");
       }
     );
-    db.run(insertSql, function(err) {
-      if(err) {
-        return err
-      }
-      console.log("Inserted successfully");
-    });
 });

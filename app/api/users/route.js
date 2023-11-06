@@ -26,11 +26,16 @@ export async function POST(req) {
   }
   if(typeof fullname === 'undefined'){
     try{
-      let items = await db.all(`SELECT username, password FROM user where username="${username}" and password="${password}"`)
-      if(items.length == 1) return Response.json({message : "Login Succesful"})
-      else return Response.json({message : "Login Unseccesful"}), 400
+      const items = await db.get(`SELECT username, password FROM user WHERE username = ${username} AND password = ${password}`);
+      if(items.length == 1) {
+        console.log(items);
+        return Response.status(200).json({message : "Login Succesful"})
+      } else {
+        return Response.status(400).json({message : "Login Unseccesful"});
+      }
     }catch (err){
-      return Response.json({error : err})
+      console.log("error here");
+      return Response.json({error : err});
     }
   }
   try {

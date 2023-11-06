@@ -27,10 +27,10 @@ export async function POST(req) {
   
   try {
     const insertSql = `INSERT INTO user(username, fullname, password) VALUES("${username}", "${fullname}", "${password}")`;
-    db.run(insertSql);
-    return Response.json({ message: "User added successfully" });
+    const p = await db.run(insertSql);
+    return Response.json({ error: {errno : 0} });
   } catch (err) {
-    console.error(err);
-    return Response.json({ error: "Error adding user" });
+    console.log(err)
+    return new Response(JSON.stringify({ error: err }))
   }
 }

@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link rel="preconnect" href="https://fonts.gstatic.com" />
       <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
       <main className="flex min-h-screen flex-col items-center">
 
@@ -32,7 +32,7 @@ export default function Home() {
         </a>
 
         <a
-          href=""
+          href="/signup"
           className="group rounded-lg border border-transparent px-5 py-4 hover:bg-white transition-colors duration-300 ease-in-out  "
           target="_blank"
           rel="noopener noreferrer"

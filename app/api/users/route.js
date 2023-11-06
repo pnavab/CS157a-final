@@ -24,7 +24,15 @@ export async function POST(req) {
       driver: sqlite3.Database,
     });
   }
-  
+  if(typeof fullname === 'undefined'){
+    try{
+      let items = await db.all(`SELECT username, password FROM user where username="${username}" and password="${password}"`)
+      if(items.length == 1) return Response.json({message : "Login Succesful"})
+      else return Response.json({message : "Login Unseccesful"}), 400
+    }catch (err){
+      return Response.json({error : err})
+    }
+  }
   try {
     const insertSql = `INSERT INTO user(username, fullname, password) VALUES("${username}", "${fullname}", "${password}")`;
     const p = await db.run(insertSql);

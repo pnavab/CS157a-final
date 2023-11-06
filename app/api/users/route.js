@@ -26,7 +26,7 @@ export async function POST(req) {
   }
   if(typeof fullname === 'undefined'){
     try{
-      const items = await db.get(`SELECT username, password FROM user WHERE username = ${username} AND password = ${password}`);
+      const items = await db.get(`SELECT username, password FROM user WHERE username = "${username}" AND password = "${password}"`);
       if(items.length == 1) {
         console.log(items);
         return Response.status(200).json({message : "Login Succesful"})

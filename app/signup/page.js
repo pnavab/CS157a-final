@@ -26,8 +26,12 @@ export default function Home() {
         })
         let res = await response.json();
         console.log(res)
-        if(res.error.errno == 19) setMessage("The UserName already Exists")
-        else setMessage("Succesfully Signed up")
+        if(res.error.errno == 19) {
+          setMessage("The Username Already Exists");
+        }
+        else {
+          setMessage("Succesfully Signed up");
+        }
       } catch (e) {
         console.error(e)
         setMessage("Error")

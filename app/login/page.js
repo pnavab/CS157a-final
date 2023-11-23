@@ -21,7 +21,8 @@ export default function Home() {
         body: JSON.stringify(formData)
       })
       let res = await response.json();
-      setMessage("")
+      console.log(res)
+      setMessage(res.message)
     } catch (e) {
       setMessage("That login combo could not be found")
     }

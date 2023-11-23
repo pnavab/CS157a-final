@@ -40,19 +40,25 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex min-h-screen flex-col items-center p-24">
-      {allPosts && allPosts.map(post => (
-        <div key={post.id} className="mb-5">
-          <a href={`/posts/${post.id}`}>{post.title} by {post.user}</a>
-          <p>{post.description}</p>
-        </div>
-      ))}
-      <button 
-        className="fixed bottom-4 right-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        onClick={handleClick}
-      >
-        New Post
-      </button>
-    </div>
+    <>
+      <div className="flex min-h-screen flex-col items-center p-8">
+        <h1 className="text-6xl font-bold mb-8">All Posts</h1>
+        {allPosts && allPosts.map((post) => (
+          <div key={post.id} className="bg-white p-4 shadow-md rounded-md mb-5 w-96">
+            <a href={`/posts/${post.id}`} className="text-blue-500 font-bold text-lg mb-2 hover:underline">
+              {post.title}
+            </a>
+            <p className="text-gray-600 mb-2">{post.description}</p>
+            <p className="text-gray-500">Posted by: {post.user}</p>
+          </div>
+        ))}
+        <button
+          className="fixed bottom-4 right-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          onClick={handleClick}
+        >
+          New Post
+        </button>
+      </div>
+    </>
   )
 }

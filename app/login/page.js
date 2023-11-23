@@ -24,8 +24,7 @@ export default function Home() {
       })
       let res = await response.json();
       if(res.message === "Login Successful") {
-        console.log(cookieCutter.get('userID'));
-        router.push("/profile/1");
+        router.push(`/profile/${cookieCutter.get('userID')}`);
       }
       setMessage(res.message)
     } catch (e) {

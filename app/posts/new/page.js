@@ -1,10 +1,11 @@
 'use client';
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import cookieCutter from "cookie-cutter";
 
 const BASE_POST_URL = "/api/posts";
 
-async function submitPost(title, description, userId) {
+async function submitPost(title, description) {
     console.log("reached function call");
     const response = await fetch(`${BASE_POST_URL}`, {
       method: 'POST',
@@ -14,7 +15,7 @@ async function submitPost(title, description, userId) {
       body: JSON.stringify({
         title,
         description,
-        user_id: userId
+        user_id: cookieCutter.get("userID")
       }),
     });
     const data = await response.json();
@@ -30,7 +31,7 @@ export default function Home() {
     e.preventDefault();
 
     try {
-      const newPost = await submitPost(title, description, "1"); // Assuming "1" is the user ID
+      const newPost = await submitPost(title, description);
       console.log("New post created:", newPost);
       router.push('/posts');
     } catch (error) {

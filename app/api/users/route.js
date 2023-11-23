@@ -9,14 +9,6 @@ function generateSessionToken() {
   return crypto.randomBytes(tokenLength).toString('hex');
 }
 
-// Function to set a cookie
-function setCookie(name, value, days) {
-  const expirationDate = new Date();
-  expirationDate.setDate(expirationDate.getDate() + days);
-  const cookieValue = `${name}=${value}; expires=${expirationDate.toUTCString()}; path=/`;
-  document.cookie = cookieValue;
-}
-
 //Get all users
 export async function GET() {
   if (!db) {
@@ -39,20 +31,19 @@ export async function POST(req) {
     });
   }
 
-  //Check if it's a login request
-  if(typeof fullname === 'undefined'){
-    try{
+  if (typeof fullname === 'undefined') {
+    try {
       const items = await db.get(`SELECT username, password FROM user WHERE username = "${username}" AND password = "${password}"`);
-      if(items.length == 1) {
-        const sessionToken = generateSessionToken();
-        setCookie('sessionToken', sessionToken, 1);
+      if (typeof items !== "undefined") {
         console.log(items);
-        return Response.status(200).json({message : "Login Succesful"})
+        console.log("HERE");
+        return Response.json({ message: "Login Successful" });
       } else {
-        return Response.status(400).json({message : "Login Unseccesful"});
+        return Response.json({ message: "Login Unsuccessful" }, { status: 400 });
       }
-    }catch (err){
-      return Response.json({error : err});
+    } catch (err) {
+      console.error(err);
+      return Response.json({ error: err.message || "Internal Server Error" }, { status: 500 });
     }
   }
   try {

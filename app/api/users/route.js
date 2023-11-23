@@ -18,7 +18,7 @@ export async function GET() {
 }
 
 export async function POST(req) {
-  const { username, password, fullname } = await req.json();
+  const { username, password, fullname, logout } = await req.json();
   if (!db) {
     db = await open ({
       filename: "./collection.db",
@@ -26,6 +26,13 @@ export async function POST(req) {
     });
   }
 
+  // logout request
+  if (typeof logout != 'undefined') {
+    cookies().delete('userID');
+    return Response.json({ message: "Logged out" });
+  }
+
+  // login request
   if (typeof fullname === 'undefined') {
     try {
       const items = await db.get(`SELECT username, password, id FROM user WHERE username = "${username}" AND password = "${password}"`);

@@ -49,7 +49,7 @@ export default function Profile(props) {
           {user !== null ? (
             <>
               <div className="relative flex place-items-center" style={{height : '35vh'}}>
-                <p2 style={{fontSize : '4rem'}}> {user} </p2>
+                <p style={{fontSize : '4rem'}}> {user} </p>
               </div>
               <div className="w-full max-w-xs">
                 <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">

@@ -78,38 +78,40 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div id="post">
+      <div id="post" className="bg-gray-200 p-4 rounded-md mb-8 w-9/12">
         {post && (
           <div>
-            <h2>{post.title}</h2>
-            <p>{post.description}</p>
+            <h2 className="text-2xl font-bold mb-2">{post.title}</h2>
+            <p className="mb-4">{post.description}</p>
             <p>Posted by: {post.user}</p>
           </div>
         )}
       </div>
-      <h1>Comment Section</h1>
-      <div id="comments" className="">
+      <h1 className="text-2xl font-bold mb-4">Comment Section</h1>
+      <div id="comments" className="w-7/12">
         {comments && comments.map(comment => (
-          <div key={comment.id}>
+          <div key={comment.id} className="border border-gray-300 rounded-md p-4 mb-1">
             <p>{comment.description}</p>
             <p>Posted by: {comment.user}</p>
           </div>
         ))}
       </div>
-      <form onSubmit={handleCommentSubmit}>
+      <form onSubmit={handleCommentSubmit} className="bg-gray-200 p-4 rounded-md mt-8">
         <input 
           type="text" 
           placeholder="Description" 
           value={newCommentDesc} 
           onChange={(e) => setNewCommentDesc(e.target.value)}
+          className="mb-2 p-2 rounded-md border border-gray-300"
         />
         <input 
           type="text" 
           placeholder="User ID" 
           value={newCommentUserId} 
           onChange={(e) => setNewCommentUserId(e.target.value)}
+          className="mb-2 p-2 rounded-md border border-gray-300"
         />
-        <button type="submit">Submit Comment</button>
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Submit Comment</button>
       </form>
     </div>
   )

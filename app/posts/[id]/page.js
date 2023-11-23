@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import cookieCutter from "cookie-cutter";
 
 const BASE_POST_URL = "/api/posts";
 const BASE_COMMENT_URL = "/api/comments";
@@ -16,7 +17,7 @@ function getUser(userId) {
     });
 }
 
-async function createComment(description, userId, postId) {
+async function createComment(description, postId) {
   const response = await fetch(`${BASE_COMMENT_URL}`, {
     method: 'POST',
     headers: {
@@ -24,7 +25,7 @@ async function createComment(description, userId, postId) {
     },
     body: JSON.stringify({
       description,
-      user_id: userId,
+      user_id: cookieCutter.get('userID'),
       post_id: postId
     }),
   });
@@ -38,7 +39,6 @@ export default function Home() {
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
   const [newCommentDesc, setNewCommentDesc] = useState('');
-  const [newCommentUserId, setNewCommentUserId] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,12 +64,11 @@ export default function Home() {
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
-    if (newCommentDesc && newCommentUserId) {
+    if (newCommentDesc) {
       try {
-        const newComment = await createComment(newCommentDesc, newCommentUserId, postId);
+        const newComment = await createComment(newCommentDesc, postId);
         setComments([...comments, { ...newComment, user: await getUser(newComment.user_id) }]);
         setNewCommentDesc('');
-        setNewCommentUserId('');
       } catch (error) {
         console.error('Error creating comment: ', error);
       }
@@ -102,13 +101,6 @@ export default function Home() {
           placeholder="Description" 
           value={newCommentDesc} 
           onChange={(e) => setNewCommentDesc(e.target.value)}
-          className="mb-2 p-2 rounded-md border border-gray-300"
-        />
-        <input 
-          type="text" 
-          placeholder="User ID" 
-          value={newCommentUserId} 
-          onChange={(e) => setNewCommentUserId(e.target.value)}
           className="mb-2 p-2 rounded-md border border-gray-300"
         />
         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Submit Comment</button>

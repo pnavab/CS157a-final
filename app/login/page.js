@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import { useRouter } from "next/navigation";
+import cookieCutter from 'cookie-cutter';
 
 export default function Home() {
   const router = useRouter();
@@ -23,7 +24,7 @@ export default function Home() {
       })
       let res = await response.json();
       if(res.message === "Login Successful") {
-        // console.log(cookies().getAll());
+        console.log(cookieCutter.get('userID'));
         router.push("/profile/1");
       }
       setMessage(res.message)

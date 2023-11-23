@@ -28,12 +28,11 @@ export async function POST(req) {
 
   if (typeof fullname === 'undefined') {
     try {
-      const items = await db.get(`SELECT username, password FROM user WHERE username = "${username}" AND password = "${password}"`);
+      const items = await db.get(`SELECT username, password, id FROM user WHERE username = "${username}" AND password = "${password}"`);
       if (typeof items !== "undefined") {
-        console.log(items);
-        console.log("HERE");
         const oneDay = 24 * 60 * 60 * 1000
-        cookies().set(username, {secure: true , expires: Date.now() - oneDay })
+        cookies().set("username", username, {secure: true , expires: Date.now() - oneDay })
+        cookies().set("userID", username, {secure: true , expires: Date.now() - oneDay })
         console.log(cookies().getAll())
         return Response.json({ message: "Login Successful" });
       } else {

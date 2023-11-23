@@ -1,6 +1,6 @@
 import sqlite3 from "sqlite3";
 import { open, Database } from "sqlite";
-import { cookies } from 'next/headers'
+import { cookies } from 'next/headers';
 
 let db = null;
 
@@ -30,13 +30,14 @@ export async function POST(req) {
     try {
       const items = await db.get(`SELECT username, password, id FROM user WHERE username = "${username}" AND password = "${password}"`);
       if (typeof items !== "undefined") {
+        // console.log(items.id);
         const oneDay = 24 * 60 * 60 * 1000
-        cookies().set("username", username, {secure: true , expires: Date.now() - oneDay })
-        cookies().set("userID", username, {secure: true , expires: Date.now() - oneDay })
-        console.log(cookies().getAll())
+        // cookies().set("username", username, {secure: true , expires: Date.now() - oneDay })
+        cookies().set("userID", items.id, {secure: true , expires: Date.now() + oneDay })
+        // console.log(cookies().getAll())
         return Response.json({ message: "Login Successful" });
       } else {
-        return Response.json({ message: "Login Unsuccessful" }, { status: 400 });
+        return Response.json({ message: "Login credentials do not match" }, { status: 400 });
       }
     } catch (err) {
       console.error(err);

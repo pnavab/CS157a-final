@@ -1,8 +1,9 @@
 'use client'
-
 import React, { useState } from 'react';
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -21,10 +22,14 @@ export default function Home() {
         body: JSON.stringify(formData)
       })
       let res = await response.json();
-      console.log(res)
+      if(res.message === "Login Successful") {
+        // console.log(cookies().getAll());
+        router.push("/profile/1");
+      }
       setMessage(res.message)
     } catch (e) {
-      setMessage("That login combo could not be found")
+      console.log(e);
+      setMessage("That login combo could not be found");
     }
   };
 

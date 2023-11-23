@@ -1,13 +1,8 @@
 import sqlite3 from "sqlite3";
 import { open, Database } from "sqlite";
-const crypto = require("crypto");
+import { cookies } from 'next/headers'
 
 let db = null;
-
-function generateSessionToken() {
-  const tokenLength = 32;
-  return crypto.randomBytes(tokenLength).toString('hex');
-}
 
 //Get all users
 export async function GET() {
@@ -37,6 +32,9 @@ export async function POST(req) {
       if (typeof items !== "undefined") {
         console.log(items);
         console.log("HERE");
+        const oneDay = 24 * 60 * 60 * 1000
+        cookies().set(username, 'value', {secure: true , expires: Date.now() - oneDay })
+        console.log(cookies().getAll())
         return Response.json({ message: "Login Successful" });
       } else {
         return Response.json({ message: "Login Unsuccessful" }, { status: 400 });

@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+
 
 const BASE_POST_URL = "/api/posts";
 const BASE_USER_URL = "/api/users";
@@ -8,8 +9,13 @@ const BASE_USER_URL = "/api/users";
 export default function Profile(props) {
   const path = usePathname();
   const userId = path.slice(path.lastIndexOf('/') + 1);
+  const router = useRouter();
   const [userPosts, setUserPosts] = useState();
   const [user, setUser] = useState();
+
+  const handleClick = () => {
+    router.push('/posts/new');
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,6 +62,12 @@ export default function Profile(props) {
               </div>
               </div>
             </div>
+            <button
+              className="fixed bottom-4 right-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              onClick={handleClick}
+            >
+              New Post
+            </button>
           </>
         ) : (
           <div>User not found</div>

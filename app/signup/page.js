@@ -1,8 +1,10 @@
 'use client'
-
 import React, { useState } from 'react';
+import { useRouter } from "next/navigation";
+import cookieCutter from "cookie-cutter";
 
 export default function Home() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     username: '',
     fullname: '',
@@ -31,6 +33,7 @@ export default function Home() {
         }
         else {
           setMessage("Succesfully Signed up");
+          router.push(`/profile/${cookieCutter.get('userID')}`);
         }
       } catch (e) {
         console.error(e)

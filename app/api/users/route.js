@@ -31,7 +31,7 @@ export async function POST(req) {
       const items = await db.get(`SELECT username, password, id FROM user WHERE username = "${username}" AND password = "${password}"`);
       if (typeof items !== "undefined") {
         // console.log(items.id);
-        const oneDay = 24 * 60 * 60 * 1000
+        const oneDay = 24 * 60 * 60 * 1000;
         // cookies().set("username", username, {secure: true , expires: Date.now() - oneDay })
         cookies().set("userID", items.id, {secure: true , expires: Date.now() + oneDay })
         // console.log(cookies().getAll())
@@ -47,7 +47,10 @@ export async function POST(req) {
   try {
     const insertSql = `INSERT INTO user(username, fullname, password) VALUES("${username}", "${fullname}", "${password}")`;
     const p = await db.run(insertSql);
-    
+    const items = await db.get(`SELECT id FROM user WHERE username = "${username}" AND password = "${password}"`);
+    console.log(items);
+    const oneDay = 24 * 60 * 60 * 1000;
+    cookies().set("userID", items.id, {secure: true , expires: Date.now() + oneDay })
     return Response.json({ error: {errno : 0} });
   } catch (err) {
     console.log(err)

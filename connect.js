@@ -121,4 +121,13 @@ db.serialize(() => {
           console.log("Created most_active_users view.");
       }
     );
+    db.run(
+      `INSERT INTO user (username, fullname, password, role) VALUES ('admin', 'Admin', 'admin', 'admin')`,
+      (err) => {
+          if (err) {
+          return console.error(err.message);
+          }
+          console.log("Inserted admin user");
+      }
+    );
 });

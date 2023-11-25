@@ -1,4 +1,5 @@
 'use client';
+import Layout from "../components/Layout";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -40,7 +41,7 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <Layout>
       <div className="flex min-h-screen flex-col items-center p-8">
         <h1 className="text-6xl font-bold mb-8">All Posts</h1>
         {allPosts && allPosts.map((post) => (
@@ -59,6 +60,6 @@ export default function Home() {
           New Post
         </button>
       </div>
-    </>
+    </Layout>
   )
 }

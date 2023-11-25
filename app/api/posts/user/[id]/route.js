@@ -15,7 +15,7 @@ export async function GET(req) {
     const items = await db.all(`SELECT * FROM post WHERE user_id = ${id}`);
     return Response.json(items);
   } catch (err) {
-    return Response.json({ error: `Error finding post ${id}`})
+    return Response.json({ error: `Error finding post ${id}`}, { status: 400 });
   }
 
 }

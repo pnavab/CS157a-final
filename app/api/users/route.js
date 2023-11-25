@@ -64,3 +64,28 @@ export async function POST(req) {
     return new Response(JSON.stringify({ error: err }))
   }
 }
+
+export async function DELETE(req) {
+  const { id } = await req.json();
+  if (!db) {
+    db = await open ({
+      filename: "./collection.db",
+      driver: sqlite3.Database,
+    });
+  }
+
+  try {
+    const result = await db.run(`DELETE FROM user WHERE id = ${id}`);
+    if (result.changes > 0) {
+      console.log("deleted successfully");
+      return Response.json({ message: `Deleted user ${id} successfully` }, { status: 200 });
+    } else {
+      console.log("error deleting");
+      return Response.json({ message: `Error deleting user ${id}` }, { status: 400 });
+
+    }
+  } catch (error) {
+    console.error(error);
+    return Response.json({ error: error.message || "Internal Server Error" }, { status: 500 });
+  }
+}

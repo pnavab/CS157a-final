@@ -27,15 +27,14 @@ export default function Profile(props) {
     if (userId !== 1) {   
       try {
         // Assuming you have an API endpoint to handle user deletion
-        const response = await fetch(`${BASE_USER_URL}/${userId}`, {
+        const response = await fetch(`/api/users`, {
           method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id: userId })
         });
-
-        if (response.ok) {
-          console.log("deleted user ", userId, " successfully");
-        } else {
-          console.error('Error deleting user:', response.statusText);
-        }
+        window.location.reload();
       } catch (error) {
         console.error('Error deleting user:', error);
       }
@@ -72,7 +71,7 @@ export default function Profile(props) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
         <main className="flex min-h-screen flex-col items-center">
-          {user !== null ? (
+          {user && typeof user !== 'undefined' ? (
             <>
               <div className="relative flex place-items-center" style={{height : '35vh'}}>
                 <p style={{fontSize : '4rem'}}> {user} </p>
@@ -80,7 +79,7 @@ export default function Profile(props) {
               <div className="w-full max-w-xs">
                 <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                   <div id="posts">
-                    {userPosts && userPosts.map(post => (
+                    {userPosts && userPosts.length > 0 && userPosts.map(post => (
                       <div key={post.id} className="mb-5">
                         <a href={`/posts/${post.id}`} target="_blank">
                           <p>{post.title}</p>
@@ -90,7 +89,7 @@ export default function Profile(props) {
                   </div>
                 </div>
               </div>
-              {getRole() === 'admin' && (
+              {getRole() === 'admin' && userId != 1 && (
                 <button
                   className="right-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   onClick={handleDeleteUser}

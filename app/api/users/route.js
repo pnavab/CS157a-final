@@ -29,19 +29,18 @@ export async function POST(req) {
   // logout request
   if (typeof logout != 'undefined') {
     cookies().delete('userID');
+    cookies().delete('role');
     return Response.json({ message: "Logged out" });
   }
 
   // login request
   if (typeof fullname === 'undefined') {
     try {
-      const items = await db.get(`SELECT username, password, id FROM user WHERE username = "${username}" AND password = "${password}"`);
+      const items = await db.get(`SELECT username, password, id, role FROM user WHERE username = "${username}" AND password = "${password}"`);
       if (typeof items !== "undefined") {
-        // console.log(items.id);
         const oneDay = 24 * 60 * 60 * 1000;
-        // cookies().set("username", username, {secure: true , expires: Date.now() - oneDay })
-        cookies().set("userID", items.id, {secure: true , expires: Date.now() + oneDay })
-        // console.log(cookies().getAll())
+        cookies().set("userID", items.id, {secure: true , expires: Date.now() + oneDay });
+        cookies().set("role", items.role, {secure: true , expires: Date.now() + oneDay });
         return Response.json({ message: "Login Successful" });
       } else {
         return Response.json({ message: "Login credentials do not match" }, { status: 400 });
@@ -54,10 +53,11 @@ export async function POST(req) {
   try {
     const insertSql = `INSERT INTO user(username, fullname, password) VALUES("${username}", "${fullname}", "${password}")`;
     const p = await db.run(insertSql);
-    const items = await db.get(`SELECT id FROM user WHERE username = "${username}" AND password = "${password}"`);
+    const items = await db.get(`SELECT id, role FROM user WHERE username = "${username}" AND password = "${password}"`);
     console.log(items);
     const oneDay = 24 * 60 * 60 * 1000;
-    cookies().set("userID", items.id, {secure: true , expires: Date.now() + oneDay })
+    cookies().set("userID", items.id, {secure: true , expires: Date.now() + oneDay });
+    cookies().set("role", items.role, {secure: true , expires: Date.now() + oneDay });
     return Response.json({ error: {errno : 0} });
   } catch (err) {
     console.log(err)

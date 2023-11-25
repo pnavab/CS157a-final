@@ -2,10 +2,15 @@
 import Layout from "../../components/Layout";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import cookieCutter from 'cookie-cutter';
 
 
 const BASE_POST_URL = "/api/posts";
 const BASE_USER_URL = "/api/users";
+
+function getRole() {
+  return cookieCutter.get('role');
+}
 
 export default function Profile(props) {
   const path = usePathname();
@@ -17,6 +22,27 @@ export default function Profile(props) {
   const handleClick = () => {
     router.push('/posts/new');
   }
+
+  const handleDeleteUser = async () => {
+    if (userId !== 1) {   
+      try {
+        // Assuming you have an API endpoint to handle user deletion
+        const response = await fetch(`${BASE_USER_URL}/${userId}`, {
+          method: 'DELETE',
+        });
+
+        if (response.ok) {
+          console.log("deleted user ", userId, " successfully");
+        } else {
+          console.error('Error deleting user:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error deleting user:', error);
+      }
+    } else {
+      console.error("cannot delete admin user");
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,17 +79,25 @@ export default function Profile(props) {
               </div>
               <div className="w-full max-w-xs">
                 <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <div id="posts">
-                  {userPosts && userPosts.map(post => (
-                    <div key={post.id} className="mb-5">
-                      <a href={`/posts/${post.id}`} target="_blank">
-                        <p>{post.title}</p>
-                      </a>
-                    </div>
-                  ))}
-                </div>
+                  <div id="posts">
+                    {userPosts && userPosts.map(post => (
+                      <div key={post.id} className="mb-5">
+                        <a href={`/posts/${post.id}`} target="_blank">
+                          <p>{post.title}</p>
+                        </a>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
+              {getRole() === 'admin' && (
+                <button
+                  className="right-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  onClick={handleDeleteUser}
+                >
+                  Delete User
+                </button>
+              )}
               <button
                 className="fixed bottom-4 right-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 onClick={handleClick}

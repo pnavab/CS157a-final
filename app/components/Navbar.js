@@ -4,10 +4,6 @@ import cookieCutter from 'cookie-cutter';
 
 const BASE_USER_URL = "/api/users";
 
-function getUser() {
-  return cookieCutter.get('userID');
-}
-
 export default function Profile(props) {
   const router = useRouter();
   const handleLogout = async () => {
@@ -25,7 +21,7 @@ export default function Profile(props) {
     <nav className="bg-orange-300 p-4 text-amber-950">
       <div className="container mx-auto flex justify-between items-center">
         <a className="text-lg font-bold" href='/posts'>Home</a>
-        <a className="ml-4" href={`/profile/${getUser()}`}>Profile</a>
+        <a className="ml-4" href={`/profile/${cookieCutter.get('userID')}`}>Profile</a>
         <button
             className="ml-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
             onClick={handleLogout}

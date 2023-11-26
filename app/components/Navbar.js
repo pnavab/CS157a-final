@@ -5,7 +5,7 @@ import cookieCutter from 'cookie-cutter';
 const BASE_USER_URL = "/api/users";
 
 function getUser() {
-  return cookieCutter.get('role');
+  return cookieCutter.get('userID');
 }
 
 export default function Profile(props) {

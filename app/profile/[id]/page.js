@@ -81,7 +81,7 @@ export default function Profile(props) {
                   <div id="posts">
                     {userPosts && userPosts.length > 0 && userPosts.map(post => (
                       <div key={post.id} className="mb-5">
-                        <a href={`/posts/${post.id}`} target="_blank">
+                        <a href={`/posts/${post.id}`}>
                           <p>{post.title}</p>
                         </a>
                       </div>

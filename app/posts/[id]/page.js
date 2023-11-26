@@ -103,7 +103,7 @@ export default function Home() {
             placeholder="Description" 
             value={newCommentDesc} 
             onChange={(e) => setNewCommentDesc(e.target.value)}
-            className="mb-2 p-2 rounded-md border border-gray-300"
+            className="mb-2 p-2 text-black rounded-md border border-gray-300"
           />
           <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Submit Comment</button>
         </form>

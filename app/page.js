@@ -18,8 +18,7 @@ export default function Home() {
         <div className="mb- grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-2 lg:text-center justify-between p-28">
           <a
             href="/login"
-            className="group rounded-lg border border-transparent px-5 py-4 hover:bg-white transition-colors duration-300 ease-in-out  "
-            target="_blank"
+            className="group rounded-lg border border-transparent px-5 py-4 hover:bg-white transition-colors duration-300 ease-in-out"
             rel="noopener noreferrer"
           >
             <h2 className={`mb-3 text-2xl font-neutral`}>
@@ -32,8 +31,7 @@ export default function Home() {
 
           <a
             href="/signup"
-            className="group rounded-lg border border-transparent px-5 py-4 hover:bg-white transition-colors duration-300 ease-in-out  "
-            target="_blank"
+            className="group rounded-lg border border-transparent px-5 py-4 hover:bg-white transition-colors duration-300 ease-in-out"
             rel="noopener noreferrer"
           >
             <h2 className={`mb-3 text-2xl font-neutral`}>

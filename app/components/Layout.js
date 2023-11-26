@@ -1,4 +1,4 @@
-// Layout.js
+'use client';
 import Navbar from './Navbar';
 
 const Layout = ({ children }) => {

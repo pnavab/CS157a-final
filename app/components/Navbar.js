@@ -1,10 +1,10 @@
 'use client';
 import { useRouter } from "next/navigation";
-import cookieCutter from 'cookie-cutter';
+import cookieCutter from "cookie-cutter";
 
 const BASE_USER_URL = "/api/users";
 
-export default function Profile(props) {
+export default function Navbar() {
   const router = useRouter();
   const handleLogout = async () => {
     const response = await fetch('/api/users', {
@@ -16,7 +16,6 @@ export default function Profile(props) {
     })
     router.push('/login');
   };
-
   return (
     <nav className="bg-orange-300 p-4 text-amber-950">
       <div className="container mx-auto flex justify-between items-center">

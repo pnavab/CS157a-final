@@ -77,7 +77,6 @@ export default function Home() {
   }
 
   return (
-    <Layout>
       <div className="flex min-h-screen flex-col items-center justify-between p-24">
         <div id="post" className="bg-gray-200 p-4 rounded-md mb-8 w-9/12">
           {post && (
@@ -108,6 +107,5 @@ export default function Home() {
           <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Submit Comment</button>
         </form>
       </div>
-    </Layout>
   )
 }

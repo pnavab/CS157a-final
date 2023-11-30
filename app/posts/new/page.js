@@ -61,7 +61,6 @@ export default function Home() {
   }, []);
 
   return (
-    <Layout>
       <div className="flex min-h-screen flex-col items-center justify-between p-24">
         {isUserLoggedIn ? (
           <>
@@ -98,6 +97,5 @@ export default function Home() {
           <p className="text-red-500 font-bold">You must be signed in to post.</p>
         )}
       </div>
-    </Layout>
   );
 }

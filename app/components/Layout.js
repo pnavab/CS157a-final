@@ -1,14 +1,15 @@
 'use client';
+import internal from 'stream';
 import Navbar from './Navbar';
 
 const Layout = ({ children }) => {
   return (
-    <div>
-      <Navbar />
-      <div className="">
+    <html>
+      <body className={internal.className}>
+        <Navbar />
         {children}
-      </div>
-    </div>
+      </body>
+    </html>
   );
 };
 
